@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Functions in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Functions in R">
+  <meta name="author" content="Colin Pistell">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/solarized_dark.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/cust.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Functions in R</h1>
+    <h2>Explained with dinosaurs</h2>
+    <p>Colin Pistell<br/>MS Business Analytics 2016</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:url(./assets/img/chaos.jpg);background-size:cover;">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<style>.title-slide {background:url(./assets/img/minimalistic-dinosaur.jpg);background-size: cover}</style>
+
+<h1 class="emph wtxt txtcent">This is what your code is like without functions</h1>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-2" style="background:url(./assets/img/raptor.gif);background-size:cover;">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<h1 class="wtxt emph txtcent">Time to teach your code some manners!</h1>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-3" style="background:url(./assets/img/paints.jpg);background-size:cover;">
+  <article data-timings="">
+    <h1 class="wtxt emph2">Getting Started</h1>
+
+<p><br>
+<br></p>
+
+<ul>
+<li class="wtxt bgtxt">Functions aren't that hard</li>
+<li class="wtxt bgtxt">Actually they'll make your life much easier</li>
+<li class="wtxt bgtxt">Experimentation is key</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The Basic Idea</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li class=bgtxt>Good programmers are lazy</li>
+<li class=bgtxt>They want to type as little as possible</li>
+<li class=bgtxt>It would be nice if particularly useful algorithms & bits of code could be bundled together and used repeatedly with little effort</li>
+<li class=bgtxt>That's what functions do!</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>The Good News</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>If you&#39;ve used R at all, then you&#39;ve already used functions. A lot of useful ones come built in to R. Let&#39;s look at some:</p>
+
+<pre><code class="r">vals &lt;- rnorm(100) #We generate 100 random normal variables with the rnorm() function
+mean(vals) #And we then calculate their average with the mean() function
+</code></pre>
+
+<pre><code>## [1] 0.08575855
+</code></pre>
+
+<p>Imagine if every time you wanted to calculate the mean of some numbers you had to code the algorithm from scratch. That would be bad. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Introducing Pseudocode</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We&#39;ll be exploring some fundamental concepts of functions using pseudocode</p>
+
+<ul>
+<li>When using pseudocode, we try to implement all logical/control aspects of a program but we use more natural language.</li>
+<li>It&#39;s a great way of figuring out how you&#39;re going to solve a problem with code before worrying about the nitty gritty of getting the syntax right.</li>
+</ul>
+
+<p><img class=imgrw width="500" src='./assets/img/testdino.jpg'></p>
+
+<ul>
+<li>Example: mean(vector) = sum of all items in vector/length of vector</li>
+<li>There are varying levels of formality - we won&#39;t be going very formal.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Programming a Dinosaur</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let&#39;s imagine that we are responsible for programming a dinosaur to get around in the Cretaceous period.</p>
+
+<ul>
+<li><p>She&#39;s going to need to have a few basic capabilities to survive, namely navigating, hunting, fleeing from predators, etc.</p></li>
+<li><p>A lot of basic behaviors are common to many of these activities. If we coded them all from scratch each time we&#39;d end up doing a lot of typing and repeating ourselves quite a bit.</p></li>
+<li><p>We&#39;ll code these basic behaviors as functions and then use those functions to easily create more complex skills... and save ourselves a lot of typing!</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>The Basics &amp; Running</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let&#39;s teach our dinosaur to run. In (highly simplified) pseudocode, our running script will look something like this:</p>
+
+<pre><code>1. Lean Forward
+2. Drive Right Leg against Ground AND Pull Left Leg forward
+3. Drive Left Leg against Ground AND Pull Right Leg forward
+</code></pre>
+
+<p>In the real world there will always be a context behind why the dinosaur is running, but we&#39;re going to purposefully ignore that for now. This is because <b>a function should only do one thing and do it well.</b></p>
+
+<p><img class=imgAbsRight width=300 src='./assets/img/growl.png'></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Making a Function</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>In most languages, R included, turning code into a function is simple - we simply wrap the code in the appropriate function statement... something like this:</p>
+
+<pre><code>Run = Function{
+1. Lean Forward
+2. Drive Right Leg against Ground AND Pull Left Leg forward
+3. Drive Left Leg against Ground AND Pull Right Leg forward
+}
+</code></pre>
+
+<p>So far so good, but our dinosaur is going to need to do more than just run. Let&#39;s teach her to pounce, which will introduce the concept of an <b>Argument.</b></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Arguments</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let&#39;s create a quick pouncing function for our dinosaur. Something like this:</p>
+
+<pre><code>Pounce = Function {
+1. Jump
+2. Extend claws
+3. Land
+}
+</code></pre>
+
+<p>You&#39;ve probably already spotted the problem with this function... what are we pouncing? To fix this we need to add an argument - essentially an object the function uses or acts on. Let&#39;s try this:</p>
+
+<pre><code>Pounce(Target) = Function {
+1. Jump towards Target
+2. Extend claws
+3. Land on Target
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Using Functions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We now have the tools to build some more complex behavior, like hunting. We&#39;ll use the functions we&#39;ve already made to save ourselves a lot of work:</p>
+
+<pre><code>Hunt(Dinner) = Function{
+1. While Distance to Dinner &gt; 3 meters, Run() towards Dinner
+2. Pounce(Target = Dinner)
+}
+</code></pre>
+
+<p>Nice! Notice that our Run function has an set of parenthesis after it. This is because it takes no arguments. Also notice that we fed the argument from our Hunt function into Pounce.</p>
+
+<p>Time to use our new Hunt function! Let&#39;s tell our dinosaur to hunt a Hadrosaur:</p>
+
+<pre><code>Hunt(hadrosaur)
+</code></pre>
+
+<p>Easy!</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Flexibility</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We touched on this idea before, but you want your functions to do just one thing and do that thing well. This maximizes its flexibility and usefulness. For example, let&#39;s now use our Run function for another important job - running away!</p>
+
+<pre><code>Flee(Predator) = Function {
+1. While Predator is in sight, Run() away from Predator
+2. Hide()
+}
+</code></pre>
+
+<ul>
+<li>Because our Run function was just about running, we could reuse it here.</li>
+<li><p>Notice we also used a function called Hide. Think (in pseudocode) how this function might work!</p>
+
+<p>Flee(TRex)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Function Output and Returns</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Thus far our functions have just done stuff, but haven&#39;t generated any information of their own. Most of the time though we&#39;ll want our functions to <b>return</b> some sort of output.</p>
+
+<ul>
+<li><p>This output can be printed to a console, <b> assigned to a variable</b> and/or <b> fed into the arguments of another function!</b></p></li>
+<li><p>Reread that last sentence. It&#39;s really important. Let&#39;s underline it with a diplodocus.</p></li>
+</ul>
+
+<div class=centered>
+<img class=imgcent width=700 align='middle' src='./assets/img/diplodacus.png'>
+</div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Function Output Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let&#39;s teach our dinosaur to look around for food and predators:</p>
+
+<pre><code>Search(Area) = Function {
+1. Look around Area until AnotherDinosaur is spotted
+2. Return(AnotherDinosaur)
+}
+</code></pre>
+
+<p>Returned objects can be of any data type. Let&#39;s teach our dinosaur to size up other dinosaurs:</p>
+
+<pre><code>SizeUp(Target) = Function {
+1. IF Target.Size &gt; My.Size, Return(TRUE)
+2. ELSE, Return(FALSE)
+}
+</code></pre>
+
+<p>Why not put those together? Remember, functions should do just one thing. Breaking them up this way makes them more flexible, which we&#39;ll see in a moment...</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Putting it all together.</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We&#39;ve created quite a few functions - Run, Pounce, Hunt, Flee, Search and SizeUp. We&#39;ve learned about Arguments and Returns. And, we&#39;ve taught our dinosaur a few good tricks. Now let&#39;s combine everything and give our girl some real intelligence. Using our functions, it&#39;ll be easy. See if you can follow the flow of Arguments, Variables, and Returns:</p>
+
+<pre><code>1. While awake:
+2. otherDino = Search(Surroundings)
+3. isItBigger = SizeUp(otherDino)
+4. IF isItBigger = TRUE, Flee(otherDino)
+5. ELSE, Hunt(otherDino)
+</code></pre>
+
+<p>Make sense? Obviously our pseudocode is extremely oversimplified, but you can see how we can build some pretty complex behavior without a lot of extra typing.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="paper" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Enough with the dinosaurs Colin. What do actual R functions look like?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Here&#39;s a quick example:</p>
+
+<pre><code class="r">squareMinusOne &lt;- function(x) {
+    result &lt;- x^2 - 1
+    return(result)
+}
+
+myVar &lt;- squareMinusOne(5)
+print(myVar)
+</code></pre>
+
+<pre><code>## [1] 24
+</code></pre>
+
+<p>Try to identify the Argument and the Returned value. Also notice that we assigned the output of the function to a variable.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:url(./assets/img/moto.gif);background-size:cover;">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<h1 class="emph wtxt txtcent">Now go forth and conquer - with Functions!</h1>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+<slide class="" id="slide-18" style="background:#656F76;">
+<hgroup>
+  
+</hgroup>
+<article class = 'flexbox vcenter'>
+<div class=centered>
+<p class="txtcent bgtxt wtxt"><b>Thanks for reading!</b></p>
+<p class="txtcent wtxt">contact me at pistell@colorado.edu</p>
+<img class=imgcent width=300 src='./assets/img/rawr.png'>
+</div>
+
+</article>
+<!-- Presenter Notes -->
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='NA'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='NA'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The Basic Idea'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='The Good News'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Introducing Pseudocode'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Programming a Dinosaur'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='The Basics &amp; Running'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Making a Function'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Arguments'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Using Functions'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Flexibility'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Function Output and Returns'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Function Output Example'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Putting it all together.'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Enough with the dinosaurs Colin. What do actual R functions look like?'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='NA'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='NA'>
+         18
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
