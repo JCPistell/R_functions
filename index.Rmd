@@ -162,8 +162,6 @@ We touched on this idea before, but you want your functions to do just one thing
 - Because our Run function was just about running, we could reuse it here.
 - Notice we also used a function called Hide. Think (in pseudocode) how this function might work!
 
-    Flee(TRex)
-
 ---.paper
 
 ## Function Output and Returns
