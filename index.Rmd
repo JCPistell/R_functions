@@ -45,7 +45,7 @@ knit        : slidify::knit2slides
 
 ## The Good News
 
-If you've used R at all, then you've already used functions. A lot of useful ones come built in to R. Let's look at some:
+If you've used R at all, then you've already used functions. A lot of useful ones come built in. Let's look at some:
 
 ```{r}
 vals <- rnorm(100) #We generate 100 random normal variables with the rnorm() function
