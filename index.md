@@ -247,5 +247,6 @@ Try to identify the Argument and the Returned value. Also notice that we assigne
 <div class=centered>
 <p class="txtcent bgtxt wtxt"><b>Thanks for reading!</b></p>
 <p class="txtcent wtxt">contact me at pistell@colorado.edu</p>
+<p class="txtcent wtxt">or find me at <a href="http://colinpistell.com" target="_blank">colinpistell.com</a></p>
 <img class=imgcent width=300 src='./assets/img/rawr.png'>
 </div>
